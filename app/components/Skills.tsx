@@ -51,16 +51,16 @@ const skills = [
   {
     icon: Layers,
     name: "State Management",
-    tech: "Redux, Context API, Jotai",
+    tech: "Zustand, Context API, Jotai",
     description: "Managing complex application state with modern state management solutions.",
     color: "text-indigo-500",
   },
  
   {
     icon: Globe,
-    name: "Web Performance",
-    tech: "Optimization, SEO",
-    description: "Optimizing web applications for speed, accessibility, and search engine visibility.",
+    name: "Web Performance & Api",
+    tech: "Optimization, SEO, ReactQuery, SWR",
+    description: "Optimizing web applications for speed, accessibility, and search engine visibility, Optimal and seamless api management.",
     color: "text-teal-500",
   },
   {

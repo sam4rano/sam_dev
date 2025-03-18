@@ -33,7 +33,7 @@ export default function Experience() {
       ],
     },
     {
-      company: "Grazze",
+      company: "Grazac",
       location: "Remote",
       period: "2022 - 2023",
       role: "Frontend Developer Intern",
