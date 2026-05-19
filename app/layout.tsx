@@ -1,15 +1,10 @@
 import "./globals.css"
-import { Inter } from "next/font/google"
 import type React from "react"
-import { ThemeProvider } from "@/components/theme-provider"
-import { ModeToggle } from "@/components/mode-toggle"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Samuel Oyerinde- MERN Stack Developer",
-  description: "Portfolio of Samuel, a MERN Stack Developer specializing in full-stack web applications.",
-    generator: 'v0.dev'
+  title: "Samuel Oyerinde — AI & Software Engineer",
+  description:
+    "Portfolio of Samuel Oyerinde, an AI and Software Engineer specialising in multilingual speech technologies, NLP, data infrastructure, and scalable platforms for low-resource environments.",
 }
 
 export default function RootLayout({
@@ -18,19 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="fixed top-4 right-4 z-50">
-            <ModeToggle />
-          </div>
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body>{children}</body>
     </html>
   )
 }
-
-
-
-import './globals.css'

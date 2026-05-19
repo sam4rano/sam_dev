@@ -1,70 +1,111 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { Home, User, BookOpen, Code, Briefcase, Layers, GraduationCap, Mail } from "lucide-react"
 
 const sections = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "services", label: "Services" },
-  { id: "education", label: "Education" },
-  { id: "contact", label: "Contact" },
+  { id: "hero",       label: "Home",       icon: Home },
+  { id: "about",      label: "About",      icon: User },
+  { id: "research",   label: "Research",   icon: BookOpen },
+  { id: "projects",   label: "Projects",   icon: Code },
+  { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "skills",     label: "Skills",     icon: Layers },
+  { id: "education",  label: "Education",  icon: GraduationCap },
+  { id: "contact",    label: "Contact",    icon: Mail },
 ]
 
 export default function FloatingNav() {
-  const [activeSection, setActiveSection] = useState("hero")
+  const [active, setActive] = useState("hero")
+  const [visible, setVisible] = useState(false)
+  const [hovered, setHovered] = useState<string | null>(null)
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 80)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { threshold: 0.5 },
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { threshold: 0.35 }
     )
-
     sections.forEach(({ id }) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
     })
-
     return () => observer.disconnect()
   }, [])
 
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+
   return (
-    <motion.div
-      className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50"
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 1 }}
-    >
-      <div className="flex flex-col gap-3">
-        {sections.map(({ id, label }) => (
-          <button
-            key={id}
-            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative flex items-center"
-            aria-label={`Scroll to ${label}`}
+    <AnimatePresence>
+      {visible && (
+        <motion.nav
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 60 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+        >
+          <div
+            className="flex items-center gap-1 p-2 rounded-2xl"
+            style={{
+              background: "rgba(8,11,20,0.9)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(99,102,241,0.12)",
+            }}
           >
-            <span className="absolute right-8 px-2 py-1 rounded bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {label}
-            </span>
-            <div
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                activeSection === id
-                  ? "bg-blue-600 dark:bg-blue-400 scale-125"
-                  : "bg-gray-400 dark:bg-gray-600 hover:scale-110"
-              }`}
-            />
-          </button>
-        ))}
-      </div>
-    </motion.div>
+            {sections.map(({ id, label, icon: Icon }) => {
+              const isActive = active === id
+              return (
+                <div key={id} className="relative">
+                  <button
+                    onClick={() => scrollTo(id)}
+                    onMouseEnter={() => setHovered(id)}
+                    onMouseLeave={() => setHovered(null)}
+                    title={label}
+                    className={`relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 ${
+                      isActive ? "text-white" : "text-gray-500 hover:text-gray-300"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-active"
+                        className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600"
+                        transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                      />
+                    )}
+                    <Icon className="w-4 h-4 relative z-10" />
+                  </button>
+                  <AnimatePresence>
+                    {hovered === id && !isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute -top-9 left-1/2 -translate-x-1/2 px-2 py-1 rounded-lg text-xs font-medium text-white whitespace-nowrap pointer-events-none"
+                        style={{
+                          background: "rgba(8,11,20,0.95)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                        }}
+                      >
+                        {label}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
+          </div>
+        </motion.nav>
+      )}
+    </AnimatePresence>
   )
 }
-

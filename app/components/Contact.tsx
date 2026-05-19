@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react"
-import Image from "next/image"
+import { Mail, MapPin, Phone, Send, Loader2, Github, Linkedin } from "lucide-react"
+import AnimatedSectionHeader from "./AnimatedSectionHeader"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -21,164 +21,126 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     try {
-      // Here you would typically send the form data to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
+      await new Promise((r) => setTimeout(r, 1000))
       setSubmitSuccess(true)
       reset()
-      setTimeout(() => setSubmitSuccess(false), 3000)
-    } catch (error) {
-      console.error("Error submitting form:", error)
+      setTimeout(() => setSubmitSuccess(false), 4000)
+    } catch (e) {
+      console.error(e)
     } finally {
       setIsSubmitting(false)
     }
   }
 
+  const contactInfo = [
+    { icon: Mail, label: "Email", value: "oyerindesamuelabiodun@gmail.com", href: "mailto:oyerindesamuelabiodun@gmail.com" },
+    { icon: Phone, label: "Phone", value: "+234 81 6442 7860", href: "tel:+2348164427860" },
+    { icon: MapPin, label: "Location", value: "Lagos, Nigeria", href: null },
+    { icon: Github, label: "GitHub", value: "github.com/sam4rano", href: "https://github.com/sam4rano" },
+    { icon: Linkedin, label: "LinkedIn", value: "samuel-oyerinde", href: "https://www.linkedin.com/in/samuel-oyerinde/" },
+  ]
+
   return (
-    <section
-      id="contact"
-      className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-900 transition-colors duration-300 overflow-hidden relative"
-    >
+    <section id="contact" className="section-base bg-[var(--bg-base)]">
+      <div className="blob w-[500px] h-[500px] bg-blue-700 top-0 right-[-10%]" />
       <div className="container mx-auto px-6 relative z-10">
-        <motion.h2
-          className="text-4xl font-bold mb-12 text-center dark:text-white"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Get in Touch
-        </motion.h2>
-        <div className="flex flex-col lg:flex-row gap-12">
+        <AnimatedSectionHeader title="Get in Touch" />
+
+        <div className="flex flex-col lg:flex-row gap-8 max-w-5xl mx-auto">
+          {/* Contact info */}
           <motion.div
-            className="lg:w-1/3"
-            initial={{ opacity: 0, x: -50 }}
+            className="lg:w-2/5"
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-semibold mb-6 dark:text-white">Contact Information</h3>
-              <div className="space-y-6">
-                <a
-                  href="mailto:musmanzafar53@gmail.com"
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  <Mail className="w-6 h-6 mr-3 text-blue-600" />
-                  oyerindesamuelabiodun@gmail.com
-                </a>
-                <a
-                  href="tel:+923055356766"
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-                  <Phone className="w-6 h-6 mr-3 text-blue-600" />
-                  +234 6442 7860
-                </a>
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <MapPin className="w-6 h-6 mr-3 text-blue-600" />
-                  Lagos, Nigeria
-                </div>
+            <div className="glass-card p-7 h-full flex flex-col gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Let's Connect</h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  Whether you're looking for a research collaborator, ML engineer, or a full-stack product builder — feel free to reach out.
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                {contactInfo.map(({ icon: Icon, label, value, href }) =>
+                  href ? (
+                    <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-[var(--text-secondary)] hover:text-white transition-colors group"
+                    >
+                      <div className="p-2 rounded-lg bg-indigo-500/15 text-indigo-400 group-hover:bg-indigo-500/25 transition-colors">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-sm">{value}</span>
+                    </a>
+                  ) : (
+                    <div key={label} className="flex items-center gap-3 text-[var(--text-secondary)]">
+                      <div className="p-2 rounded-lg bg-indigo-500/15 text-indigo-400">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-sm">{value}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </motion.div>
+
+          {/* Form */}
           <motion.div
-            className="lg:w-2/3"
-            initial={{ opacity: 0, x: 50 }}
+            className="lg:w-3/5"
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-7 flex flex-col gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Name
-                  </label>
-                  <input
-                    {...register("name")}
-                    type="text"
-                    className={`w-full px-4 py-2 rounded-md border ${
-                      errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
-                  />
-                  {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
+                  <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-2 uppercase tracking-wider">Name</label>
+                  <input {...register("name")} type="text" placeholder="Samuel Oyerinde"
+                    className={`form-input ${errors.name ? "border-red-500/60" : ""}`} />
+                  {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <input
-                    {...register("email")}
-                    type="email"
-                    className={`w-full px-4 py-2 rounded-md border ${
-                      errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                    } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
-                  />
-                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+                  <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-2 uppercase tracking-wider">Email</label>
+                  <input {...register("email")} type="email" placeholder="you@example.com"
+                    className={`form-input ${errors.email ? "border-red-500/60" : ""}`} />
+                  {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
                 </div>
               </div>
-              <div className="mt-6">
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Subject
-                </label>
-                <input
-                  {...register("subject")}
-                  type="text"
-                  className={`w-full px-4 py-2 rounded-md border ${
-                    errors.subject ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
-                />
-                {errors.subject && <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>}
+              <div>
+                <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-2 uppercase tracking-wider">Subject</label>
+                <input {...register("subject")} type="text" placeholder="Collaboration opportunity..."
+                  className={`form-input ${errors.subject ? "border-red-500/60" : ""}`} />
+                {errors.subject && <p className="mt-1 text-xs text-red-400">{errors.subject.message}</p>}
               </div>
-              <div className="mt-6">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Message
-                </label>
-                <textarea
-                  {...register("message")}
-                  rows={4}
-                  className={`w-full px-4 py-2 rounded-md border ${
-                    errors.message ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white`}
-                ></textarea>
-                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>}
+              <div>
+                <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-2 uppercase tracking-wider">Message</label>
+                <textarea {...register("message")} rows={5} placeholder="Tell me about your project..."
+                  className={`form-input resize-none ${errors.message ? "border-red-500/60" : ""}`} />
+                {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
               </div>
-              <div className="mt-6">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center ${
-                    isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Send className="w-5 h-5 mr-2" />}
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-              </div>
+              <button type="submit" disabled={isSubmitting} className="btn-primary justify-center">
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {isSubmitting ? "Sending…" : "Send Message"}
+              </button>
               {submitSuccess && (
-                <div className="mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-md">
-                  Message sent successfully!
+                <div className="p-4 rounded-xl bg-green-500/15 border border-green-500/25 text-green-400 text-sm font-medium text-center">
+                  ✓ Message sent successfully — I'll get back to you soon!
                 </div>
               )}
             </form>
           </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20">
-        <Image src="/placeholder.svg?height=256&width=256" alt="Decorative background" width={256} height={256} />
-      </div>
     </section>
   )
 }
-

@@ -1,71 +1,59 @@
 "use client"
 
 import { GraduationCap, Calendar, Award } from "lucide-react"
-import Image from "next/image"
 import AnimatedSectionHeader from "./AnimatedSectionHeader"
 import { motion } from "framer-motion"
 
 export default function Education() {
-  const education = [
-    {
-      degree: "Bachelor of Science in Computer Science",
-      institution: "Federal University of Agriculture, Abeokuta (FUNAAB)",
-      period: "2018 – 2022",
-      achievements: [
-        "Graduated with Upper Division honors",
-        "Specialized in Web Development and Artificial Intelligence",
-        "Completed coursework in JavaScript, Python, and Web Essentials",
-        "Completed AI thesis on Yoruba news classification using Transformer and Traditional ML Approach"
-      ],
-    },
-  ]
-
   return (
-    <section
-      id="education"
-      className="py-20 bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-gray-900 dark:to-purple-900 transition-colors duration-300 overflow-hidden relative"
-    >
+    <section id="education" className="section-base bg-[var(--bg-base)]">
+      <div className="blob w-[400px] h-[400px] bg-purple-700 bottom-0 right-[-8%]" />
       <div className="container mx-auto px-6 relative z-10">
         <AnimatedSectionHeader title="Education" />
         <div className="max-w-3xl mx-auto">
-          {education.map((edu, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 w-32 h-32 bg-purple-200 dark:bg-purple-700 rounded-br-full z-0 opacity-50"></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-semibold mb-2 dark:text-white flex items-center">
-                  <GraduationCap className="w-6 h-6 mr-2" />
-                  {edu.degree}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="glass-card p-8 bg-gradient-to-br from-indigo-600/15 to-purple-600/10 border-indigo-500/20"
+          >
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+              <div>
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                  <GraduationCap className="w-6 h-6 text-indigo-400 shrink-0" />
+                  B.Sc. Computer Science
                 </h3>
-                <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">{edu.institution}</p>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  {edu.period}
+                <p className="text-[var(--text-secondary)] mt-1">
+                  Federal University of Agriculture, Abeokuta (FUNAAB)
                 </p>
-                <h4 className="text-lg font-medium mb-2 dark:text-gray-200 flex items-center">
-                  <Award className="w-5 h-5 mr-2" />
-                  Key Achievements:
-                </h4>
-                <ul className="list-disc list-inside space-y-2">
-                  {edu.achievements.map((achievement, idx) => (
-                    <li key={idx} className="text-gray-700 dark:text-gray-300">
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
               </div>
-            </motion.div>
-          ))}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/25 text-indigo-300 text-sm font-medium shrink-0 w-fit">
+                <Calendar className="w-3.5 h-3.5" />
+                2018 – 2022
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-sm font-semibold text-[var(--text-secondary)] mb-4">
+              <Award className="w-4 h-4 text-yellow-400" />
+              Upper Division Honours
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                "Specialised in Artificial Intelligence, NLP, and Scalable Systems",
+                "AI thesis: Yorùbá news classification using Transformers vs. Traditional ML",
+                "Led technical study groups on ML and backend architecture",
+                "Coursework in Python, Java, Algorithms, and Distributed Systems",
+              ].map((a, i) => (
+                <div key={i} className="flex items-start gap-2.5 text-sm text-[var(--text-secondary)] bg-white/[0.03] border border-white/[0.05] rounded-xl p-3.5 leading-relaxed">
+                  <div className="mt-1.5 w-1 h-1 rounded-full bg-indigo-400 shrink-0" />
+                  {a}
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-      </div>
-      <div className="absolute top-0 left-0 w-64 h-64 -mt-32 -ml-32 opacity-20">
-        <Image src="/placeholder.svg?height=256&width=256" alt="Decorative background" width={256} height={256} />
       </div>
     </section>
   )

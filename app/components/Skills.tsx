@@ -1,118 +1,90 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, Layout, GitBranch, Terminal, Layers, Cpu, Globe, Workflow } from "lucide-react"
+import { Cpu, Code, Database, Layout, Server, GitBranch } from "lucide-react"
 import AnimatedSectionHeader from "./AnimatedSectionHeader"
-
-const SkillIcon = ({ icon: Icon, color }: { icon: any; color: string }) => (
-  <div className={`p-2 rounded-full bg-white dark:bg-gray-800 shadow-lg`}>
-    <Icon className={`w-6 h-6 ${color}`} />
-  </div>
-)
 
 const skills = [
   {
-    icon: Code,
-    name: "Frontend Development",
-    tech: "React.js, Next.js",
-    description:
-      "Building responsive and interactive user interfaces with modern React features and Next.js for optimal performance.",
-    color: "text-blue-500",
+    icon: Cpu,
+    name: "AI / NLP / Speech",
+    tech: "PyTorch · HuggingFace · Kaldi · ESPnet · PaddleOCR",
+    description: "Language model training, ASR/TTS pipelines, NER, OCR for African scripts, and low-resource dataset engineering.",
+    accent: "text-red-400", iconBg: "bg-red-500/15", bar: "from-red-500 to-orange-400", level: 90,
   },
-
   {
     icon: Database,
-    name: "Database Management",
-    tech: "MongoDB, Mongoose",
-    description: "Designing and implementing efficient database schemas and queries for optimal data management.",
-    color: "text-purple-500",
+    name: "Data Infrastructure",
+    tech: "PostgreSQL · PGVector · MongoDB · RAG · Airflow",
+    description: "Designing large-scale annotation pipelines, vector stores, semantic retrieval, and data QA frameworks.",
+    accent: "text-purple-400", iconBg: "bg-purple-500/15", bar: "from-purple-500 to-pink-400", level: 88,
+  },
+  {
+    icon: Code,
+    name: "Software Engineering",
+    tech: "Python · TypeScript · Node.js · REST · gRPC",
+    description: "Clean, production-ready code for backends, APIs, and ML systems with strong architectural discipline.",
+    accent: "text-blue-400", iconBg: "bg-blue-500/15", bar: "from-blue-500 to-indigo-400", level: 92,
   },
   {
     icon: Layout,
-    name: "UI/UX Design",
-    tech: "Tailwind CSS, Material UI",
-    description: "Crafting beautiful and intuitive user interfaces with modern design principles and frameworks.",
-    color: "text-pink-500",
+    name: "Frontend & Full-Stack",
+    tech: "React · Next.js · Tailwind CSS · Framer Motion",
+    description: "End-to-end product engineering — from research prototype to polished production web application.",
+    accent: "text-cyan-400", iconBg: "bg-cyan-500/15", bar: "from-cyan-500 to-blue-400", level: 85,
+  },
+  {
+    icon: Server,
+    name: "Systems Architecture",
+    tech: "SaaS · Microservices · Multi-tenant · Fintech APIs",
+    description: "Designing secure, scalable multi-tenant platforms with payment integrations and enterprise-grade reliability.",
+    accent: "text-green-400", iconBg: "bg-green-500/15", bar: "from-green-500 to-emerald-400", level: 87,
   },
   {
     icon: GitBranch,
-    name: "Version Control",
-    tech: "Git, GitHub",
-    description: "Managing code versions efficiently with Git and collaborating effectively through GitHub.",
-    color: "text-orange-500",
-  },
-  {
-    icon: Terminal,
-    name: "TypeScript",
-    tech: "TypeScript, JavaScript",
-    description: "Writing type-safe code for better maintainability and developer experience.",
-    color: "text-yellow-500",
-  },
-  {
-    icon: Layers,
-    name: "State Management",
-    tech: "Zustand, Context API, Jotai",
-    description: "Managing complex application state with modern state management solutions.",
-    color: "text-indigo-500",
-  },
- 
-  {
-    icon: Globe,
-    name: "Web Performance & Api",
-    tech: "Optimization, SEO, ReactQuery, SWR",
-    description: "Optimizing web applications for speed, accessibility, and search engine visibility, Optimal and seamless api management.",
-    color: "text-teal-500",
-  },
-  {
-    icon: Workflow,
-    name: "Agile Methodologies",
-    tech: "Scrum, Kanban",
-    description: "Working efficiently in agile environments with focus on continuous delivery.",
-    color: "text-cyan-500",
+    name: "MLOps & DevOps",
+    tech: "Git · Docker · CI/CD · Model Serving",
+    description: "Automating ML deployments, monitoring model drift, and maintaining engineering velocity in research projects.",
+    accent: "text-orange-400", iconBg: "bg-orange-500/15", bar: "from-orange-500 to-amber-400", level: 82,
   },
 ]
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-indigo-900 dark:to-purple-900"></div>
-
-      {/* Skill Illustrations */}
-      <div className="absolute inset-0 opacity-10">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="skill-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-              <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" strokeWidth="2" />
-              <path d="M50 30 L50 70 M30 50 L70 50" stroke="currentColor" strokeWidth="2" />
-            </pattern>
-          </defs>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#skill-pattern)" />
-        </svg>
-      </div>
-
+    <section id="skills" className="section-base bg-[var(--bg-base)]">
+      <div className="blob w-[450px] h-[450px] bg-indigo-700 top-[-5%] left-[-5%]" />
       <div className="container mx-auto px-6 relative z-10">
-        <AnimatedSectionHeader title="Skills & Expertise" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, index) => (
+        <AnimatedSectionHeader title="Technical Skills" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          {skills.map((s, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="glass-card p-6 flex flex-col gap-4"
             >
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <div className="flex items-center mb-4">
-                  <SkillIcon icon={skill.icon} color={skill.color} />
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                      {skill.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{skill.tech}</p>
-                  </div>
+              <div className="flex items-center gap-3">
+                <div className={`p-2.5 rounded-xl ${s.iconBg}`}>
+                  <s.icon className={`w-5 h-5 ${s.accent}`} />
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 text-sm">{skill.description}</p>
+                <div>
+                  <h3 className={`text-sm font-bold ${s.accent}`}>{s.name}</h3>
+                  <p className="text-xs text-[var(--text-muted)] mt-0.5 leading-snug">{s.tech}</p>
+                </div>
+              </div>
+              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{s.description}</p>
+              <div className="mt-auto">
+                <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+                  <motion.div
+                    className={`h-full rounded-full bg-gradient-to-r ${s.bar}`}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${s.level}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.3 + i * 0.06, ease: "easeOut" }}
+                  />
+                </div>
               </div>
             </motion.div>
           ))}
@@ -121,4 +93,3 @@ export default function Skills() {
     </section>
   )
 }
-

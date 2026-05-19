@@ -1,127 +1,150 @@
 "use client"
 
 import Image from "next/image"
-import { GitlabIcon as GitHub, Linkedin, Mail, ArrowDown } from "lucide-react"
+import { Github, Linkedin, Mail, ArrowRight, Download, FileText } from "lucide-react"
 import { motion } from "framer-motion"
 
-const CodePattern = () => (
-  <svg className="absolute inset-0 w-full h-full opacity-5" xmlns="http://www.w3.org/2000/svg">
-    <pattern
-      id="pattern-circles"
-      x="0"
-      y="0"
-      width="50"
-      height="50"
-      patternUnits="userSpaceOnUse"
-      patternContentUnits="userSpaceOnUse"
-    >
-      <circle id="pattern-circle" cx="10" cy="10" r="1.6257413380501518" fill="#000"></circle>
-    </pattern>
-    <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
-  </svg>
-)
+const stagger = { animate: { transition: { staggerChildren: 0.1 } } }
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+}
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-indigo-900 dark:to-purple-900"
-    >
-      {/* Programming-themed Background */}
-      <div className="absolute inset-0 z-0">
-        <CodePattern />
-      </div>
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[var(--bg-base)]">
+      {/* Ambient blobs */}
+      <div className="blob w-[600px] h-[600px] bg-indigo-600 top-[-15%] left-[-8%]" />
+      <div className="blob w-[500px] h-[500px] bg-blue-600   top-[30%]  right-[-8%]" style={{ animationDelay: "2s" }} />
+      <div className="blob w-[350px] h-[350px] bg-cyan-600   bottom-[-8%] left-[35%]" style={{ animationDelay: "4s" }} />
 
-      {/* Animated Gradient */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-yellow-500 to-rose-600 animate-gradient-x"></div>
-      </div>
+      {/* Grid */}
+      <div className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
 
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="container mx-auto px-6 py-28 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+
+          {/* ── Left ── */}
           <motion.div
-            className="lg:w-1/2 text-center lg:text-left"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="lg:w-[55%] flex flex-col items-center lg:items-start text-center lg:text-left"
+            variants={stagger} initial="initial" animate="animate"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-              Samuel Oyerinde
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-300">
-              Software Engineer 
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Crafting exceptional digital experiences with modern web technologies. Specialized in building scalable
-              Web applications with React, Nextjs, Typescript and Javascript.
-            </p>
-            <div className="flex justify-center lg:justify-start space-x-4 mb-8">
-              <a
-                href="https://github.com/sam4rano"
-                className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                aria-label="GitHub Profile"
-              >
-                <GitHub className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/samuel-oyerinde/"
-                className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-              </a>
-              <a
-                href="mailto:sam4rano@gmail.com"
-                className="p-3 rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                aria-label="Email Contact"
-              >
-                <Mail className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-              </a>
-            </div>
-            <motion.button
-              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            {/* Badge */}
+            <motion.div variants={fadeUp}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 border border-indigo-500/30 bg-indigo-500/10 w-fit text-sm font-medium text-indigo-300"
             >
-              Learn More
-              <ArrowDown className="w-4 h-4" />
-            </motion.button>
+              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+              AI · NLP · Speech · Systems Engineering
+            </motion.div>
+
+            {/* Name */}
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-3">
+              <span className="text-[var(--text-primary)]">Samuel</span>{" "}
+              <span className="gradient-heading">Oyerinde</span>
+            </motion.h1>
+
+            {/* Role */}
+            <motion.p variants={fadeUp} className="text-xl font-semibold text-[var(--text-secondary)] mb-6">
+              AI Research Engineer · Low-Resource Language Technologies
+            </motion.p>
+
+            {/* Bio hook */}
+            <motion.p variants={fadeUp} className="text-base text-[var(--text-secondary)] leading-relaxed mb-10 max-w-xl">
+              I build data infrastructure and intelligent systems for underrepresented languages — spanning multilingual ASR/TTS, named-entity recognition, OCR for African scripts, and AI-powered education and fintech platforms.
+            </motion.p>
+
+            {/* CTA row */}
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-3 mb-10 w-full sm:w-auto">
+              <button
+                onClick={() => document.getElementById("research")?.scrollIntoView({ behavior: "smooth" })}
+                className="btn-primary w-full sm:w-auto justify-center"
+              >
+                View Research <ArrowRight className="w-4 h-4" />
+              </button>
+
+              {/* View CV */}
+              <a
+                href="/sam_oyerinde_cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline w-full sm:w-auto justify-center"
+              >
+                <FileText className="w-4 h-4" /> View CV
+              </a>
+
+              {/* Download CV */}
+              <a
+                href="/sam_oyerinde_cv.pdf"
+                download="Samuel_Oyerinde_CV.pdf"
+                className="btn-outline w-full sm:w-auto justify-center"
+              >
+                <Download className="w-4 h-4" /> Download CV
+              </a>
+            </motion.div>
+
+            {/* Social icons */}
+            <motion.div variants={fadeUp} className="flex items-center gap-3">
+              {[
+                { icon: Github,   href: "https://github.com/sam4rano", label: "GitHub" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/samuel-oyerinde/", label: "LinkedIn" },
+                { icon: Mail,     href: "mailto:oyerindesamuelabiodun@gmail.com", label: "Email" },
+              ].map(({ icon: Icon, href, label }) => (
+                <motion.a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  aria-label={label}
+                  className="p-3 rounded-xl border border-[var(--border)] bg-white/[0.03] text-[var(--text-secondary)] hover:text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 transition-all duration-200"
+                  whileHover={{ scale: 1.08, y: -2 }} whileTap={{ scale: 0.95 }}
+                >
+                  <Icon className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
 
+          {/* ── Right: Photo ── */}
           <motion.div
-            className="lg:w-1/2"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="lg:w-[45%] flex justify-center"
+            initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-3xl transform rotate-6 opacity-50"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 dark:from-purple-600 dark:to-blue-600 rounded-3xl transform -rotate-6 opacity-50"></div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] animate-float">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-indigo-600/40 via-blue-500/20 to-cyan-400/25 blur-2xl scale-110" />
+              <div className="relative w-full h-full rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-base)]/50 via-transparent to-transparent z-10" />
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0812.jpg-jQSxWaycmtpBR7IUnsPV8C8L3vlrQ2.jpeg"
-                  alt="Samuel Oyerinde"
-                  fill
-                  className="object-cover"
-                  priority
+                  src="/sam_oye.jpg"
+                  alt="Samuel Oyerinde — AI Research Engineer"
+                  fill className="object-cover" priority
                 />
               </div>
+
+              {/* Floating badge */}
+              <motion.div
+                className="absolute -bottom-4 -right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-2xl border border-indigo-500/30 backdrop-blur-xl"
+                style={{ background: "rgba(8,11,20,0.9)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-sm font-medium text-gray-300">Open to collaborations</span>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Decorative Elements */}
+      {/* Scroll hint */}
       <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
       >
-        <div className="w-1 h-12 bg-gradient-to-b from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 rounded-full animate-pulse"></div>
+        <div className="w-px h-12 bg-gradient-to-b from-indigo-500/60 to-transparent" />
       </motion.div>
     </section>
   )
 }
-

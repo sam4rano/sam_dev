@@ -1,68 +1,73 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Layout, Server, Smartphone } from "lucide-react"
-import Image from "next/image"
+import { BrainCircuit, Database, Server, Rocket } from "lucide-react"
+import AnimatedSectionHeader from "./AnimatedSectionHeader"
+
+const services = [
+  {
+    icon: BrainCircuit,
+    title: "AI & Machine Learning",
+    description: "Custom NLP models, computer vision pipelines, and intelligent systems tailored for low-resource and high-performance environments.",
+    gradient: "from-blue-500/20 to-cyan-500/10",
+    border: "border-blue-500/20",
+    iconColor: "text-blue-400",
+    iconBg: "bg-blue-500/15",
+  },
+  {
+    icon: Database,
+    title: "Data Infrastructure & RAG",
+    description: "Scalable data ingestion pipelines, vector databases (PGVector), and Retrieval-Augmented Generation for enterprise semantic search.",
+    gradient: "from-purple-500/20 to-indigo-500/10",
+    border: "border-purple-500/20",
+    iconColor: "text-purple-400",
+    iconBg: "bg-purple-500/15",
+  },
+  {
+    icon: Server,
+    title: "Backend & Systems Architecture",
+    description: "Robust multi-tenant SaaS backends, fintech integrations, and highly available microservices using Python and Node.js.",
+    gradient: "from-green-500/20 to-emerald-500/10",
+    border: "border-green-500/20",
+    iconColor: "text-green-400",
+    iconBg: "bg-green-500/15",
+  },
+  {
+    icon: Rocket,
+    title: "MLOps & Productionisation",
+    description: "Streamlined deployment of ML models to production with robust CI/CD, monitoring, and cost-efficient scaling strategies.",
+    gradient: "from-orange-500/20 to-amber-500/10",
+    border: "border-orange-500/20",
+    iconColor: "text-orange-400",
+    iconBg: "bg-orange-500/15",
+  },
+]
 
 export default function Services() {
-  const services = [
-    {
-      icon: <Layout className="w-12 h-12 text-blue-500" />,
-      title: "Web Application Development",
-      description: "Custom web applications built with React and Next.js, focusing on performance and user experience.",
-    },
-    
-    {
-      icon: <Code className="w-12 h-12 text-purple-500" />,
-      title: "S.E.O",
-      description:
-        "Optimised applications that are S.E.O compliant.",
-    },
-    {
-      icon: <Smartphone className="w-12 h-12 text-yellow-500" />,
-      title: "Responsive Design",
-      description: "Mobile-first, responsive web designs that work flawlessly across all devices and screen sizes.",
-    },
-  ]
-
   return (
-    <section
-      id="services"
-      className="py-20 bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-900 dark:to-blue-900 transition-colors duration-300 overflow-hidden relative"
-    >
+    <section id="services" className="section-base bg-[var(--bg-base)]">
+      <div className="blob w-[500px] h-[500px] bg-green-700 top-0 left-[-8%]" />
       <div className="container mx-auto px-6 relative z-10">
-        <motion.h2
-          className="text-4xl font-bold mb-12 text-center dark:text-white"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          My Services
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => (
+        <AnimatedSectionHeader title="Services" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {services.map((s, i) => (
             <motion.div
-              key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-              initial={{ opacity: 0, y: 50 }}
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className={`glass-card p-7 bg-gradient-to-br ${s.gradient} ${s.border}`}
             >
-              <div className="flex items-center mb-4">
-                {service.icon}
-                <h3 className="text-2xl font-semibold ml-4 dark:text-white">{service.title}</h3>
+              <div className={`p-4 rounded-2xl ${s.iconBg} w-fit mb-5`}>
+                <s.icon className={`w-8 h-8 ${s.iconColor}`} />
               </div>
-              <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
+              <h3 className={`text-xl font-bold mb-3 ${s.iconColor}`}>{s.title}</h3>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{s.description}</p>
             </motion.div>
           ))}
         </div>
       </div>
-      <div className="absolute top-0 left-0 w-64 h-64 -mt-32 -ml-32 opacity-20">
-        <Image src="/placeholder.svg?height=256&width=256" alt="Decorative background" width={256} height={256} />
-      </div>
     </section>
   )
 }
-

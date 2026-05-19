@@ -1,99 +1,90 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { Code, Database, Server, Zap } from "lucide-react";
-import Image from "next/image";
+import { motion } from "framer-motion"
+import Image from "next/image"
+import AnimatedSectionHeader from "./AnimatedSectionHeader"
 
 export default function About() {
-  const skills = [
-    {
-      icon: <Code className="w-8 h-8 text-blue-500" />,
-      title: "Frontend",
-      description: "React, Next.js, Redux",
-    },
+  const focus = [
+    { label: "Domain", value: "Low-Resource Language AI" },
+    { label: "Languages", value: "Yorùbá, Igbo, Luhya, Kamba, Gusii, Somali, Nigerian Pidgin" },
+    { label: "Tasks", value: "ASR · TTS · NER · OCR · Semantic Retrieval" },
+    { label: "Stack", value: "Python · PyTorch · HuggingFace · PGVector · Next.js" },
+    { label: "Interests", value: "AI for Africa · Education Intelligence · Fintech Systems" },
+  ]
 
-    {
-      icon: <Database className="w-8 h-8 text-purple-500" />,
-      title: "Database",
-      description: "MongoDB, Mongoose",
-    },
-    {
-      icon: <Zap className="w-8 h-8 text-yellow-500" />,
-      title: "Performance",
-      description: "Optimization, Caching",
-    },
-  ];
+  const stats = [
+    { value: "4,000+", label: "Hours of speech data curated" },
+    { value: "220K+",  label: "NER annotation samples" },
+    { value: "96%",    label: "Inter-annotator agreement" },
+    { value: "1,100+", label: "Institutions on edurepoAI" },
+  ]
 
   return (
-    <section
-      id="about"
-      className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-900 transition-colors duration-300 overflow-hidden relative"
-    >
+    <section id="about" className="section-base bg-[var(--bg-base)]">
+      <div className="blob w-[450px] h-[450px] bg-indigo-700 top-0 right-[-5%]" />
+
       <div className="container mx-auto px-6 relative z-10">
-        <motion.h2
-          className="text-4xl font-bold mb-8 text-center dark:text-white"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          About Me
-        </motion.h2>
-        <div className="flex flex-col md:flex-row items-center justify-between">
+        <AnimatedSectionHeader title="About Me" />
+
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-14 items-start">
+
+          {/* Photo */}
           <motion.div
-            className="md:w-1/2 mb-8 md:mb-0"
-            initial={{ opacity: 0, x: -50 }}
+            className="lg:w-1/3 flex justify-center shrink-0"
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              I am a self-motivated and innovative Frontend Engineer with a
-              proven track record of developing visually appealing, scalable,
-              and user-centric applications. With expertise in React.js,
-              JavaScript, and TypeScript, I specialize in building dynamic user
-              interfaces, optimizing performance, and ensuring seamless
-              cross-device experiences.
-            </p>
-            <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-              My expertise extends to modern frameworks like Next.js and state
-              management tools like Zustand, Jotai. I'm committed to writing
-              clean, efficient code and staying up-to-date with the latest
-              industry trends to deliver cutting-edge solutions for my clients.
-            </p>
-          </motion.div>
-          <motion.div
-            className="md:w-1/2 grid grid-cols-2 gap-6"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
-              >
-                {skill.icon}
-                <h3 className="text-xl font-semibold mt-4 mb-2 dark:text-white">
-                  {skill.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {skill.description}
-                </p>
+            <div className="relative w-56 h-56 md:w-64 md:h-64">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-indigo-600/30 to-cyan-500/15 blur-2xl scale-110" />
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <Image src="/sam_oye.jpg" alt="Samuel Oyerinde" fill className="object-cover" />
               </div>
-            ))}
+            </div>
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            className="flex-1 space-y-8"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Bio */}
+            <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
+              <p>
+                I am an AI research engineer working at the intersection of <span className="text-white font-medium">Natural Language Processing, Speech Technology, and Systems Engineering</span>. My primary focus is building robust data infrastructure and AI systems for African and low-resource languages — languages that remain critically underserved by mainstream NLP research.
+              </p>
+              <p>
+                Beyond research, I architect production-grade platforms — from an AI-driven education intelligence system (edurepoAI) to a multi-tenant fintech SaaS (Quomoni) — demonstrating that rigorous research and real-world engineering are not mutually exclusive.
+              </p>
+            </div>
+
+            {/* Research focus table */}
+            <div className="glass-card p-5 space-y-3">
+              {focus.map(({ label, value }) => (
+                <div key={label} className="flex items-start gap-4 text-sm">
+                  <span className="shrink-0 w-24 font-semibold text-indigo-400">{label}</span>
+                  <span className="text-[var(--text-secondary)]">{value}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {stats.map(({ value, label }) => (
+                <div key={label} className="glass-card p-4 text-center">
+                  <div className="text-2xl font-extrabold text-gradient-blue-cyan">{value}</div>
+                  <div className="text-xs text-[var(--text-muted)] mt-1 leading-snug">{label}</div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 -mb-32 -mr-32 opacity-20">
-        <Image
-          src="/placeholder.svg?height=256&width=256"
-          alt="Decorative background"
-          width={256}
-          height={256}
-        />
-      </div>
     </section>
-  );
+  )
 }
