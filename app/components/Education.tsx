@@ -44,7 +44,7 @@ export default function Education() {
                 "Specialised in Artificial Intelligence, NLP, and Scalable Systems",
                 "AI thesis: Yorùbá news classification using Transformers vs. Traditional ML",
                 "Led technical study groups on ML and backend architecture",
-                "Coursework in Python, Java, Algorithms, and Distributed Systems",
+                "Coursework in Python, Java and Algorithms",
               ].map((a, i) => (
                 <div key={i} className="flex items-start gap-2.5 text-sm text-[var(--text-secondary)] bg-white/[0.03] border border-white/[0.05] rounded-xl p-3.5 leading-relaxed">
                   <div className="mt-1.5 w-1 h-1 rounded-full bg-indigo-400 shrink-0" />

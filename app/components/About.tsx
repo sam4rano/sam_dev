@@ -14,8 +14,8 @@ export default function About() {
   ]
 
   const stats = [
-    { value: "4,000+", label: "Hours of speech data curated" },
-    { value: "220K+",  label: "NER annotation samples" },
+    { value: "5,000+", label: "Hours of speech data curated" },
+    { value: "20K+",  label: "NER annotation samples" },
     { value: "96%",    label: "Inter-annotator agreement" },
     { value: "1,100+", label: "Institutions on edurepoAI" },
   ]

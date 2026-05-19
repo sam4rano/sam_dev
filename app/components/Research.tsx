@@ -10,8 +10,8 @@ const contributions = [
     title: "Multilingual Speech Corpus",
     subtitle: "ASR · TTS · Low-Resource",
     description:
-      "Led end-to-end curation, annotation, and processing of 4,000+ hours of speech data across Luhya, Kamba, Gusii, and Somali — enabling the first production-grade low-resource ASR/TTS systems for these languages. Designed scalable audio-to-transcription pipelines and standardised QA frameworks.",
-    tags: ["4,000+ hrs", "4 Languages", "ASR/TTS", "Kenya"],
+      "Led end-to-end curation, processing and uloading of 5,000+ hours of speech data across Luhya, Kamba, Gusii, and Somali — enabling the first production-grade low-resource ASR/TTS systems for these languages. Designed scalable audio-to-transcription pipelines and standardised QA frameworks.",
+    tags: ["5,000+ hrs", "4 Languages", "ASR/TTS", "Kenya"],
     accent: "text-blue-400",
     iconBg: "bg-blue-500/15",
     border: "border-blue-500/20",
@@ -22,8 +22,8 @@ const contributions = [
     title: "MasakhaNER — Nigerian Pidgin NER",
     subtitle: "NER · Masakhane Ecosystem",
     description:
-      "Annotated and curated 220,000+ Nigerian Pidgin samples for Named Entity Recognition as part of the Masakhane community effort. Maintained 96% inter-annotator agreement, contributing to the first high-quality NER benchmark for Nigerian Pidgin.",
-    tags: ["220K+ samples", "96% IAA", "Masakhane", "Pidgin"],
+      "Annotated and curated 20,000+ Nigerian Pidgin samples for Named Entity Recognition as part of the Masakhane community effort. Maintained 96% inter-annotator agreement, contributing to the first high-quality NER benchmark for Nigerian Pidgin.",
+    tags: ["20K+ samples", "96% IAA", "Masakhane", "Pidgin"],
     accent: "text-purple-400",
     iconBg: "bg-purple-500/15",
     border: "border-purple-500/20",

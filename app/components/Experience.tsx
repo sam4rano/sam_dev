@@ -14,8 +14,8 @@ const experiences = [
     border: "border-blue-500/20",
     gradient: "from-blue-500/10 to-transparent",
     responsibilities: [
-      "Led end-to-end curation, annotation, and processing of 4,000+ hours of multilingual speech data across Luhya, Kamba, Gusii, and Somali for low-resource ASR and TTS systems.",
-      "Designed scalable audio-to-transcription pipelines and NLP preprocessing workflows handling speaker diarisation, noise filtering, and forced alignment.",
+      "Led end-to-end curation, processing and uploading of 5,000+ hours of multilingual speech data across Luhya, Kamba, Gusii, and Somali for low-resource ASR and TTS systems.",
+      "Designed scalable audio-to-transcription pipelines and NLP preprocessing workflows handling malformed, and forced alignment.",
       "Established standardised annotation protocols and QA frameworks, achieving consistent data quality across cross-lingual datasets.",
     ],
   },
@@ -28,7 +28,7 @@ const experiences = [
     border: "border-purple-500/20",
     gradient: "from-purple-500/10 to-transparent",
     responsibilities: [
-      "Annotated and curated 220,000+ Nigerian Pidgin samples for NER within the Masakhane community-driven research ecosystem.",
+      "Annotated and curated 20,000+ Nigerian Pidgin samples for NER within the Masakhane community-driven research ecosystem.",
       "Maintained 96% inter-annotator agreement (IAA) through rigorous guideline development and adjudication processes.",
       "Advanced the first production-grade NER benchmark for Nigerian Pidgin via the MasakhaNER dataset release.",
     ],
